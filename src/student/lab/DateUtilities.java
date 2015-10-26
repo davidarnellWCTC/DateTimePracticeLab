@@ -26,7 +26,7 @@ import java.time.format.DateTimeFormatter;
 public class DateUtilities {
 
     public static void main(String[] args) {
-        // use this tot est this class.
+        // use this to test this class.
         DateUtilities app = new DateUtilities();
         
         String time = app.addDaysToCurrentLocalDate(5);
@@ -129,17 +129,14 @@ public class DateUtilities {
     
     public String addDaysToCurrentLocalDate(double days){
         String currentDatePlusDays = "";
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("mm/dd/yyy");
-        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("mm/dd/yyyy");
+        LocalDateTime currentDate = LocalDateTime.now();
         //currentDatePlusDays = currentDate.plusDays((long) days).format(format);
-        currentDatePlusDays = LocalDate.now().plusDays((long) days).format(format);
+        currentDatePlusDays = currentDate.plusDays((long) days).format(format);
         return currentDatePlusDays;
     }
     
-    // add days to current date
-    // add weeks to current date
-    // add months to current date
-    // add years to current date
+    
     
     // do math with date
 }
