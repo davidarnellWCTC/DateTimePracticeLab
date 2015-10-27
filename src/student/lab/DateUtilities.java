@@ -105,7 +105,7 @@ public class DateUtilities {
      * This method returns the local time as a string in the specified format
      * the format will be in an approved Java hour/minute format
      * Formats can be found at http://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html
-     * @param timeFormat - String formatted as HH:MM:SS
+     * @param timeFormat - String of Java hours, minutes, seconds format ex: hh:mm
      * @return
      * @throws IllegalArgumentException 
      */
