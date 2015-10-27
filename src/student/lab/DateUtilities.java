@@ -128,6 +128,33 @@ public class DateUtilities {
         return strCurrentTime;
     }
     
+    /**
+     * This method returns the local time as a string in the specified format
+     * the format will be in an approved Java hour/minute format
+     * Formats can be found at http://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html
+     * @param timeFormat - String of Java hours, minutes, seconds format ex: hh:mm
+     * @return
+     * @throws IllegalArgumentException 
+     */
+    public String getLocalDateAsSpecifiedFormattedString(String timeFormat) throws IllegalArgumentException {
+        if(timeFormat == null || timeFormat.length() < 1 || timeFormat.trim().isEmpty() ){
+            throw new IllegalArgumentException("Ener a vaid date format");
+        }
+//        //String timeFormat = timeFormat;
+//        String timeFormatTest = toLowerCase(timeFormat);
+//        if (timeFormatTest != "hh:mm:ss" || timeFormatTest != "hh:mm" ||
+//                timeFormatTest != "hh:mm:ss" || timeFormatTest != "hh:mm a" ||
+//                timeFormatTest != "hh 'o''clock' a" || timeFormatTest != "hh" ||
+//                timeFormatTest != "mm"){
+//            throw new IllegalArgumentException("Enter a vaid time format for hours, minutes, and secnds");
+//        }
+        
+        DateTimeFormatter format = DateTimeFormatter.ofPattern(timeFormat);
+        LocalDate currentTime = LocalDate.now();
+        String strCurrentTime = currentTime.format(format);
+        return strCurrentTime;
+    }
+    
     
     /**
      * This function adds minutes as a double value to the current time.
