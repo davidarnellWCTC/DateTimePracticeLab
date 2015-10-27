@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import static jdk.nashorn.internal.objects.NativeString.toLowerCase;
 
 /**
  * Student API: students should complete this lab by one week from today: Create
@@ -29,7 +30,7 @@ public class DateUtilities {
         // use this to test this class.
         DateUtilities app = new DateUtilities();
         
-        String time = app.addDaysToCurrentLocalDate(5);
+        String time = app.getLocalTimeAsSpecifiedFormattedString("hh:mm");
         System.out.println(time);
     }
     
@@ -98,13 +99,46 @@ public class DateUtilities {
     }
     
     /**
+     * This method returns the local time as a string in the specified format
+     * the format will be in an approved Java hour/minute format
+     * Formats can be found at http://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html
+     * @param timeFormat - String formatted as HH:MM:SS
+     * @return
+     * @throws IllegalArgumentException 
+     */
+    public String getLocalTimeAsSpecifiedFormattedString(String timeFormat) throws IllegalArgumentException {
+        if(timeFormat == null || timeFormat.length() < 1 || timeFormat.trim().isEmpty() ){
+            throw new IllegalArgumentException("Ener a vaid time format");
+        }
+        //String timeFormat = timeFormat;
+        String timeFormatTest = toLowerCase(timeFormat);
+        if (timeFormatTest != "hh:mm:ss" || timeFormatTest != "hh:mm" ||
+                timeFormatTest != "hh:mm:ss" || timeFormatTest != "hh:mm a" ||
+                timeFormatTest != "hh 'o''clock' a" || timeFormatTest != "hh" ||
+                timeFormatTest != "mm"){
+            throw new IllegalArgumentException("Enter a vaid time format for hours, minutes, and secnds");
+        }
+        
+        DateTimeFormatter format = DateTimeFormatter.ofPattern(timeFormat);
+        LocalTime currentTime = LocalTime.now();
+        String strCurrentTime = currentTime.format(format);
+        return strCurrentTime;
+    }
+    
+    
+    /**
      * This function adds minutes as a double value to the current time.
      * The return is a string value of the current time plus the specified minutes.
      * returns in the hh:mm a format
-     * @param minutes - double minutes to add to the current time
+     * @param minutes - double minutes to add to the current time; use negative value to subtract time
      * @return 
      */
-    public String addMinutesToCurrentLocalTime(double minutes){
+    public String addMinutesToCurrentLocalTime(double minutes) throws ArithmeticException{
+        // removed negative vaue exception
+        // the user can add negative minutes to decrease the time
+//        if (minutes <=0){
+//            throw new ArithmeticException("Please enter a positive value for the minutes");
+//        }
         String timePlusMinutes = "";
         DateTimeFormatter format = DateTimeFormatter.ofPattern("mm:hh a");
         LocalTime currentTime = LocalTime.now();        
@@ -116,10 +150,10 @@ public class DateUtilities {
      * This function adds minutes as a double value to the current time.
      * The return is a string value of the current time plus the specified minutes.
      * returns in the hh:mm a format
-     * @param minutes - double minutes to add to the current time
+     * @param hours - double minutes to add to the current time; use negative value to subtract time
      * @return 
      */
-    public String addHoursToCurrentLocalTime(double hours){
+    public String addHoursToCurrentLocalTime(double hours)throws ArithmeticException{
         String timePlusMinutes = "";
         DateTimeFormatter format = DateTimeFormatter.ofPattern("hh:mm a");
         LocalTime currentTime = LocalTime.now();        
@@ -127,7 +161,14 @@ public class DateUtilities {
         return timePlusMinutes;
     }
     
-    public String addDaysToCurrentLocalDate(double days){
+    /**
+     * This function adds minutes as a double value to the current time.
+     * The return is a string value of the current time plus the specified minutes.
+     * returns in the hh:mm a format
+     * @param days - double days to add to the current time; use negative value to subtract time
+     * @return 
+     */
+    public String addDaysToCurrentLocalDate(double days) throws ArithmeticException{
         String currentDatePlusDays = "";
         DateTimeFormatter format = DateTimeFormatter.ofPattern("mm/dd/yyyy");
         LocalDateTime currentDate = LocalDateTime.now();
