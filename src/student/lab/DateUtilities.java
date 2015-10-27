@@ -26,6 +26,9 @@ import static jdk.nashorn.internal.objects.NativeString.toLowerCase;
  */
 public class DateUtilities {
 
+    public DateUtilities() {
+    }
+
     public static void main(String[] args) {
         // use this to test this class.
         DateUtilities app = new DateUtilities();
